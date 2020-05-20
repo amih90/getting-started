@@ -84,4 +84,3 @@ target_link_libraries(${PROJECT_NAME}
         azrtos::threadx
         azrtos::netxduo
 )
-
