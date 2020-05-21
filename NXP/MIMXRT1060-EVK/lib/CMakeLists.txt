@@ -9,16 +9,18 @@ set(THREADX_TOOLCHAIN "gnu")
 
 # FIXME tried to optimize dependency and do not include nx_cloud in this repo
 # # nx_cloud
-# CPMAddPackage(
-#     NAME azure_iot_preview
-#     GIT_REPOSITORY https://github.com/azure-rtos/azure-iot-preview
-#     GIT_TAG master
-# )
-# if (azure_iot_preview_ADDED)
-#     add_subdirectory(azure_iot_preview/nx_cloud)
-# #   add_library(azure_iot_preview/nx_cloud INTERFACE IMPORTED)
-# #   target_include_directories(nx_cloud INTERFACE ${azure_iot_preview_SOURCE_DIR}/nx_cloud)
-# endif()
+CPMAddPackage(
+    NAME azure_iot_preview
+    GIT_REPOSITORY https://github.com/azure-rtos/azure-iot-preview
+    GIT_TAG master
+    DOWNLOAD_ONLY
+)
+if (azure_iot_preview_ADDED)
+    # add_subdirectory(azure_iot_preview/nx_cloud)
+    add_subdirectory(${azure_iot_preview_SOURCE_DIR}/nx_cloud ${CMAKE_CURRENT_BINARY_DIR}/nx_cloud)
+#   add_library(azure_iot_preview/nx_cloud INTERFACE IMPORTED)
+#   target_include_directories(nx_cloud INTERFACE ${azure_iot_preview_SOURCE_DIR}/nx_cloud)
+endif()
 
 # threadX
 set(TX_USER_FILE "${CMAKE_CURRENT_LIST_DIR}/threadx/tx_user.h" CACHE STRING "Enable TX user configuration")

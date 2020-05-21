@@ -7,6 +7,7 @@
 
 #include "azure/azure_mqtt.h"
 #include "azure_iothub.h"
+#include "asc_security_core/core.h"
 #include "board.h"
 #include "tx_api.h"
 
@@ -120,6 +121,8 @@ static void mqtt_thread_entry(ULONG info)
 
 bool azure_iothub_start(CHAR *iot_hub_hostname, CHAR *iot_device_id, CHAR *iot_sas_key)
 {
+    core_t* core = core_init();
+
     bool status;
     status = azure_mqtt_register_main_thread_callback(mqtt_thread_entry);
     if (!status)
